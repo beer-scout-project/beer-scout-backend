@@ -1,4 +1,9 @@
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
   get: (a, b2) => (typeof require !== "undefined" ? require : a)[b2]
 }) : x)(function(x) {
@@ -8,6 +13,22 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
 // node_modules/dotenv/package.json
 var require_package = __commonJS({
@@ -4483,29 +4504,28 @@ function osUsername() {
 }
 
 // src/data/db.ts
+var import_dotenv = __toESM(require_main());
 if (process.env.NODE_ENV !== "production") {
-  require_main().config();
+  import_dotenv.default.config();
 }
-async function createSqlConnection() {
-  try {
-    return src_default(process.env.DATABASE_CONNECT, {
-      ssl: {
-        rejectUnauthorized: false
-        // Disable strict SSL to connect to Railway's PostgreSQL
-      }
-    });
-  } catch (error) {
-    console.error("Error creating SQL connection:", error);
-    throw new Error("Failed to create SQL connection");
+var createSqlConnection = () => {
+  if (!process.env.DATABASE_CONNECT) {
+    throw new Error("DATABASE_CONNECT is not set in the environment");
   }
-}
-var sqlPromise;
-async function getSql() {
+  return src_default(process.env.DATABASE_CONNECT, {
+    ssl: {
+      rejectUnauthorized: false
+      // Disable strict SSL to connect to Railway's PostgreSQL
+    }
+  });
+};
+var sqlPromise = null;
+var getSql = async () => {
   if (!sqlPromise) {
     sqlPromise = createSqlConnection();
   }
   return sqlPromise;
-}
+};
 
 // src/data/users.ts
 var findUserByEmailAndPassword = async (email, password) => {
@@ -4600,7 +4620,7 @@ var users_default = usersRouter;
 
 // src/index.ts
 var app = new Hono2();
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:5173" }));
 app.route("/users", users_default);
 app.get("/", (c) => {
   return c.text("Hello Hono!");
