@@ -4507,11 +4507,16 @@ function osUsername() {
 var import_dotenv = __toESM(require_main());
 if (process.env.NODE_ENV !== "production") {
   import_dotenv.default.config();
+  console.log(".env loaded. DATABASE_CONNECT:", process.env.DATABASE_CONNECT);
+} else {
+  console.log("Production environment detected. Skipping .env load.");
 }
 var createSqlConnection = () => {
   if (!process.env.DATABASE_CONNECT) {
+    console.error("Error: DATABASE_CONNECT is not set in the environment");
     throw new Error("DATABASE_CONNECT is not set in the environment");
   }
+  console.log("Creating PostgreSQL connection...");
   return src_default(process.env.DATABASE_CONNECT, {
     ssl: {
       rejectUnauthorized: false
