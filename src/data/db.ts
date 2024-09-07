@@ -1,13 +1,7 @@
 import postgres from 'postgres';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 
 // Load environment variables from .env in non-production environments
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config();
-  console.log('.env loaded. DATABASE_CONNECT:', process.env.DATABASE_CONNECT);
-} else {
-  console.log('Production environment detected. Skipping .env load.');
-}
 
 // Function to create a PostgreSQL connection using the DATABASE_CONNECT environment variable
 const createSqlConnection = () => {
