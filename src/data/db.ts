@@ -1,7 +1,7 @@
 import postgres from 'postgres';
 import 'dotenv/config';
 
-// Load environment variables from .env in non-production environments
+// Load environment variables from .env in non-production environments (removed for now)
 
 // Function to create a PostgreSQL connection using the DATABASE_CONNECT environment variable
 const createSqlConnection = () => {
