@@ -1,27 +1,26 @@
 import postgres from 'postgres';
-import dotenv from 'dotenv';
 
-// Load environment variables from .env in non-production environments
+// only use dotenv in local dev
 if (process.env.NODE_ENV !== 'production') {
-  dotenv.config();
+  await import('dotenv/config');
 }
 
-// Function to create a PostgreSQL connection using the DATABASE_CONNECT environment variable
-function createSqlConnection() {
-  if (!process.env.DATABASE_CONNECT) {
-    console.error('Error: DATABASE_CONNECT is not set in the environment');
-    throw new Error('DATABASE_CONNECT is not set in the environment');
+// Function to create a PostgreSQL connection using the Railway-provided DATABASE_URL
+async function createSqlConnection() {
+  try {
+    //@ts-ignore
+    return postgres(process.env.DATABASE_CONNECT, {
+      ssl: {
+        rejectUnauthorized: false, // Disable strict SSL
+      },
+    });
+  } catch (error) {
+    console.error('Error creating SQL connection:', error);
+    throw new Error('Failed to create SQL connection');
   }
-
-  console.log('Creating PostgreSQL connection...');
-  return postgres(process.env.DATABASE_CONNECT, {
-    ssl: {
-      rejectUnauthorized: false, // Disable strict SSL to connect to Railway's PostgreSQL
-    },
-  });
 }
 
-let sqlPromise: ReturnType<typeof createSqlConnection> | null = null;
+let sqlPromise: Promise<postgres.Sql<any>>;
 
 export async function getSql() {
   if (!sqlPromise) {
