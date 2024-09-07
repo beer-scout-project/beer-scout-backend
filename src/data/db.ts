@@ -1,8 +1,8 @@
 import postgres from 'postgres';
 
-// use db connection from .env file for local development
+// Load environment variables from .env in non-production environments
 if (process.env.NODE_ENV !== 'production') {
-  await import('dotenv/config');
+  require('dotenv').config();
 }
 
 // Function to create a PostgreSQL connection using the Railway-provided DATABASE_URL
@@ -20,7 +20,7 @@ async function createSqlConnection() {
   }
 }
 
-let sqlPromise: Promise<postgres.Sql<any>>;
+let sqlPromise: Promise<ReturnType<typeof postgres>>;
 
 export async function getSql() {
   if (!sqlPromise) {

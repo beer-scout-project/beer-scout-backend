@@ -1,7 +1,9 @@
 {
   "name": "beer-scout-backend",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsx scripts/build.ts",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.2",
@@ -11,6 +13,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "esbuild": "^0.23.1",
     "tsx": "^4.7.1"
   }
 }
