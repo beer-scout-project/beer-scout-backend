@@ -2,20 +2,20 @@ import * as esbuild from 'esbuild';
 import * as fs from 'fs/promises';
 
 async function build() {
-  // Use esbuild to bundle and compile the TypeScript code
+  // Build the project using CommonJS
   await esbuild.build({
-    entryPoints: ['src/index.ts'], // The entry point for the app (index.ts)
-    bundle: true, // Bundle all dependencies into a single output
-    outdir: 'dist', // Output the build files to the 'dist' folder
+    entryPoints: ['src/index.ts'],
+    bundle: true,
+    outdir: 'dist',
     platform: 'node',
-    format: 'esm', // Ensure output format is ES module
+    format: 'cjs', // Change to CommonJS format
   });
 
   const packageJson = {
     scripts: {
       start: 'node index.js',
     },
-    type: 'module',
+    type: 'commonjs', // Ensure this is set correctly
   };
 
   await fs.writeFile('dist/package.json', JSON.stringify(packageJson, null, 2));

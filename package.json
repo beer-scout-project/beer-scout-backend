@@ -1,9 +1,10 @@
 {
   "name": "beer-scout-backend",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsx scripts/build.ts",
+    "dev": "DOTENV_CONFIG_PATH=../.env node dist/index.js",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsx scripts/build.ts",
     "start": "node dist/index.js"
   },
   "dependencies": {
