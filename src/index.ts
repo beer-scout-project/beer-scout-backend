@@ -1,13 +1,13 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import usersRouter from './routers/users';
+import barPricesRouter from './routers/barPrices';
 
 const app = new Hono();
 
 app.use(cors({ origin: 'http://localhost:5173' }));
 
-app.route('/users', usersRouter);
+app.route('/bar-prices', barPricesRouter);
 
 app.get('/', (c) => {
   return c.text('Hello Hono!');
