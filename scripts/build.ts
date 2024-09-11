@@ -8,14 +8,14 @@ async function build() {
     bundle: true,
     outdir: 'dist',
     platform: 'node',
-    format: 'cjs', // Change to CommonJS format
+    format: 'cjs', // CommonJS format
   });
 
   const packageJson = {
     scripts: {
       start: 'node index.js',
     },
-    type: 'commonjs', // Ensure this is set correctly
+    type: 'commonjs',
   };
 
   await fs.writeFile('dist/package.json', JSON.stringify(packageJson, null, 2));
