@@ -1,9 +1,12 @@
 import { Hono } from 'hono';
-import { addBarPriceHandler } from '../handlers/barPrices';
+import { addBarPriceHandler, getBarPricesHandler } from '../handlers/barPrices';
 
 const barPricesRouter = new Hono();
 
 // Route to add a new bar price
-barPricesRouter.post('/add', addBarPriceHandler);
+barPricesRouter.post('/addBarPrice', addBarPriceHandler);
+
+// Route to get all bar prices
+barPricesRouter.get('/getBarPrices', getBarPricesHandler);
 
 export default barPricesRouter;

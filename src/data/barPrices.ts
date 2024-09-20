@@ -31,3 +31,15 @@ export const insertBarPrice = async (barPriceData: any) => {
   // Return the newly created record
   return result[0];
 };
+
+// Data function to get all bar prices for a location
+export const selectBarPricesByLocation = async (location: string) => {
+  const sql = await getSql();
+
+  // Select all bar prices for the given location
+  const result =
+    await sql`SELECT * FROM bar_prices WHERE location = ${location}`;
+
+  // Return the list of bar prices
+  return result;
+};

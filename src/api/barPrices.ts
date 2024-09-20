@@ -1,4 +1,4 @@
-import { insertBarPrice } from '../data/barPrices';
+import { insertBarPrice, selectBarPricesByLocation } from '../data/barPrices';
 
 // API function to add a new bar price
 export const addBarPriceApi = async (barPriceData: any) => {
@@ -11,4 +11,12 @@ export const addBarPriceApi = async (barPriceData: any) => {
   } catch (error) {
     throw new Error(`Error adding bar price: ${error}`);
   }
+};
+
+// API function to get all bar prices for a location
+export const getBarPricesApi = async (location: string) => {
+  // Call the data function to get all bar prices for the location
+  const barPrices = await selectBarPricesByLocation(location);
+  // Return the list of bar prices
+  return barPrices;
 };
