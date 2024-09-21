@@ -28,7 +28,7 @@ export const insertBarPrice = async (barPriceData: any) => {
     ) RETURNING *;
   `;
 
-  // Return the newly created record
+  // Return the newly created bar price data
   return result[0];
 };
 

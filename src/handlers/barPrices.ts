@@ -4,7 +4,7 @@ import { addBarPriceApi, getBarPricesApi } from '../api/barPrices';
 // Handler to add a new bar price
 export const addBarPriceHandler = async (c: Context) => {
   try {
-    // Parse the JSON data from the request
+    // Parse the JSON data (barData) from the request
     const barPriceData = await c.req.json();
 
     // Call the API function to add the bar price to the database
@@ -29,10 +29,10 @@ export const addBarPriceHandler = async (c: Context) => {
   }
 };
 
-// Handler to get bar prices by location (from path parameter)
+// Handler to get bar prices by location 
 export const getBarPricesHandler = async (c: Context) => {
   try {
-    // Extract location from path parameters
+    // get location from request parameters
     const location = c.req.param('location');
 
     if (!location) {
