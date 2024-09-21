@@ -29,25 +29,25 @@ export const addBarPriceHandler = async (c: Context) => {
   }
 };
 
-// Handler to get all bar prices for a location
+// Handler to get bar prices by location (from path parameter)
 export const getBarPricesHandler = async (c: Context) => {
   try {
-    const location = c.req.query('location');
+    // Extract location from path parameters
+    const location = c.req.param('location');
+
     if (!location) {
       return c.json({ error: 'Location is required' }, 400);
     }
 
-    // Call the API function to get all bar prices for the location
+    // Fetch bar prices from the database for the given location
     const barPrices = await getBarPricesApi(location);
 
-    // Return the list of bar prices
+    // Return the fetched bar prices
     return c.json({ barPrices }, 200);
-
-    // handle error
   } catch (error) {
     if (error instanceof Error) {
       return c.json(
-        { error: 'Failed to add bar price', details: error.message },
+        { error: 'Failed to get bar price', details: error.message },
         500
       );
     } else {

@@ -7,6 +7,6 @@ const barPricesRouter = new Hono();
 barPricesRouter.post('/addBarPrice', addBarPriceHandler);
 
 // Route to get all bar prices
-barPricesRouter.get('/getBarPrices', getBarPricesHandler);
+barPricesRouter.get('/getBarPrices/:location', getBarPricesHandler);
 
 export default barPricesRouter;

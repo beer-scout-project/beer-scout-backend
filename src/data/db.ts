@@ -1,5 +1,6 @@
 import postgres from 'postgres';
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import 'dotenv/config';
 
 // Function to fetch certificates from S3
 async function getCerts() {
