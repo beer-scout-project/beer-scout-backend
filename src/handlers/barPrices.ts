@@ -29,17 +29,17 @@ export const addBarPriceHandler = async (c: Context) => {
   }
 };
 
-// Handler to get bar prices by location 
+// Handler to get the latest bar prices by location
 export const getBarPricesHandler = async (c: Context) => {
   try {
-    // get location from request parameters
+    // Get location from request parameters
     const location = c.req.param('location');
 
     if (!location) {
       return c.json({ error: 'Location is required' }, 400);
     }
 
-    // Fetch bar prices from the database for the given location
+    // Fetch the latest bar prices for the location
     const barPrices = await getBarPricesApi(location);
 
     // Return the fetched bar prices

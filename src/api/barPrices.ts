@@ -1,4 +1,4 @@
-import { insertBarPrice, selectBarPricesByLocation } from '../data/barPrices';
+import { insertBarPrice, selectLatestBarPricesByLocation } from '../data/barPrices';
 
 // API function to add a new bar price
 export const addBarPriceApi = async (barPriceData: any) => {
@@ -13,10 +13,15 @@ export const addBarPriceApi = async (barPriceData: any) => {
   }
 };
 
-// API function to get all bar prices for a location
+// Updated API function to get the latest bar prices for a location
 export const getBarPricesApi = async (location: string) => {
-  // Call the data function to get all bar prices for the location
-  const barPrices = await selectBarPricesByLocation(location);
-  // Return the list of bar prices
-  return barPrices;
+  try {
+    // Call the data function to get the latest bar prices for the location
+    const barPrices = await selectLatestBarPricesByLocation(location);
+
+    // Return the filtered and latest bar prices
+    return barPrices;
+  } catch (error) {
+    throw new Error(`Error fetching bar prices: ${error}`);
+  }
 };
