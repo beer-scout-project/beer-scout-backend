@@ -5,7 +5,7 @@ import barPricesRouter from "./routers/barPrices";
 
 const app = new Hono();
 
-app.use(cors({ origin: ["https://beerscout.ca/", "http://localhost:5173"] }));
+app.use(cors({ origin: ["https://beerscout.ca", "http://localhost:5173"] }));
 
 app.route("/barPrices", barPricesRouter);
 
