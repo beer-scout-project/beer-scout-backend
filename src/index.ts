@@ -6,11 +6,10 @@ import usersRouter from "./routers/users";
 
 const app = new Hono();
 
-// CORS configuration to allow credentials
 app.use(
   cors({
     origin: ["https://beerscout.ca", "http://localhost:5173"],
-    credentials: true, // Allow credentials (like cookies) to be included in requests
+    credentials: true, // Send cookies with CORS requests
   })
 );
 
