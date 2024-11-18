@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import barPricesRouter from "./routers/barPrices";
 import usersRouter from "./routers/users";
+import newBarPricesRouter from "./routers/newBarPrices";
 
 const app = new Hono();
 
@@ -14,6 +15,7 @@ app.use(
 );
 
 app.route("/barPrices", barPricesRouter);
+app.route("/newBarPrices", newBarPricesRouter);
 app.route("/users", usersRouter);
 
 app.get("/", (c) => {
