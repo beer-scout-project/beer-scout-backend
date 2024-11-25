@@ -4,7 +4,7 @@ import {
   deleteReportsByBarPriceId,
   removeBarPriceAndReports,
 } from "../data/reportedBarPrices";
-import { selectBarPriceById } from "../data/barPrices"; // You'll need to create this function if it doesn't exist
+import { selectBarPriceById } from "../data/barPrices";
 
 // API function to report a bar price
 export const reportBarPriceApi = async (barPriceId: number, reason: string) => {
