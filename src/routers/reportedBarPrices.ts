@@ -11,13 +11,16 @@ const reportedBarPricesRouter = new Hono();
 // Route to report a bar price
 reportedBarPricesRouter.post("/report", reportBarPriceHandler);
 
-// Route to get reported bar prices 
-reportedBarPricesRouter.get("/getReports", getReportedBarPricesHandler);
+// Route to get reported bar prices by location
+reportedBarPricesRouter.get(
+  "/getReports/:location",
+  getReportedBarPricesHandler
+);
 
-// Route to ignore reports 
+// Route to ignore reports
 reportedBarPricesRouter.post("/ignoreReports", ignoreReportsHandler);
 
-// Route to remove bar price and reports 
+// Route to remove bar price and reports
 reportedBarPricesRouter.post("/removeBarPrice", removeBarPriceHandler);
 
 export default reportedBarPricesRouter;

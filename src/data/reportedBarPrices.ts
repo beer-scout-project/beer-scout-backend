@@ -36,8 +36,8 @@ export const insertReportedBarPrice = async (
   return result[0];
 };
 
-// Function to get reported bar prices with aggregated reasons
-export const selectReportedBarPrices = async () => {
+// Function to get reported bar prices with aggregated reasons by location
+export const selectReportedBarPrices = async (location: string) => {
   const sql = await getSql();
 
   const result = await sql`
@@ -54,6 +54,7 @@ export const selectReportedBarPrices = async () => {
       COUNT(*) AS report_count,
       ARRAY_AGG(rb.reason) AS reasons
     FROM reported_bar_prices rb
+    WHERE rb.location = ${location}
     GROUP BY rb.bar_price_id, rb.bar_name, rb.location, rb.serving_size, rb.price, rb.happy_hour, rb.happy_hour_day, rb.happy_hour_start, rb.happy_hour_end;
   `;
 

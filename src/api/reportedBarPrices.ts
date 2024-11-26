@@ -16,9 +16,9 @@ export const reportBarPriceApi = async (barPriceId: number, reason: string) => {
   return await insertReportedBarPrice(barPrice, reason);
 };
 
-// API function to get all reported bar prices
-export const getReportedBarPricesApi = async () => {
-  return await selectReportedBarPrices();
+// API function to get reported bar prices by location
+export const getReportedBarPricesApi = async (location: string) => {
+  return await selectReportedBarPrices(location);
 };
 
 // API function to ignore reports

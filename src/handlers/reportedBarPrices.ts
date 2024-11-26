@@ -24,13 +24,20 @@ export const reportBarPriceHandler = async (c: Context) => {
   }
 };
 
-// Handler to get reported bar prices
+// Handler to get reported bar prices by location
 export const getReportedBarPricesHandler = async (c: Context) => {
   try {
-    const reports = await getReportedBarPricesApi();
+    const location = c.req.param("location");
+
+    if (!location) {
+      return c.json({ error: "Location parameter is required" }, 400);
+    }
+
+    const reports = await getReportedBarPricesApi(location);
 
     return c.json({ reports }, 200);
   } catch (error) {
+    console.error("Error in getReportedBarPricesHandler:", error);
     //@ts-ignore
     return c.json({ error: error.message }, 500);
   }
