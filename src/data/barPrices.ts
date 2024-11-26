@@ -32,11 +32,38 @@ import { getSql } from "./db";
 //   return result[0];
 // };
 
+// data/barPrices.ts
+
+// Data function to select a bar price by ID
+export const selectBarPriceById = async (id: number) => {
+  const sql = await getSql();
+
+  console.log(`[selectBarPriceById] Fetching bar price with ID: ${id}`); // Debug log
+
+  const result = await sql`
+    SELECT * FROM bar_prices WHERE id = ${id};
+  `;
+
+  if (result.length === 0) {
+    console.log(`[selectBarPriceById] Bar price with ID ${id} not found`); // Debug log
+    return null;
+  }
+
+  console.log(
+    `[selectBarPriceById] Bar price with ID ${id} fetched successfully`
+  ); // Debug log
+  return result[0];
+};
+
 // Data function to get the latest bar prices for a location
 export const selectLatestBarPricesByLocation = async (location: string) => {
   const sql = await getSql();
 
-  // Fetch the latest prices for each bar and serving size, along with happy hour prices, filter to only include the latest if there is a matching bar_name and serving_size, ignore if that is a happy hour price.
+  console.log(
+    `[selectLatestBarPricesByLocation] Fetching latest bar prices for location: ${location}`
+  ); // Debug log
+
+  // Fetch the latest prices for each bar and serving size, including happy hour prices
   const result = await sql`
     WITH ranked_prices AS (
       SELECT 
@@ -54,6 +81,9 @@ export const selectLatestBarPricesByLocation = async (location: string) => {
        OR happy_hour = true;
   `;
 
-  // Return the filtered list of bar prices
+  console.log(
+    `[selectLatestBarPricesByLocation] Fetched ${result.length} bar prices for location: ${location}`
+  ); // Debug log
+
   return result;
 };
