@@ -6,11 +6,11 @@ export const insertNewBarPrice = async (barPriceData: any) => {
 
   const result = await sql`
     INSERT INTO new_bar_prices (
-      bar_name, location, serving_size, price, happy_hour, happy_hour_day, happy_hour_start, happy_hour_end
+      bar_name, location, address, serving_size, price, happy_hour, happy_hour_day, happy_hour_start, happy_hour_end
     ) VALUES (
       ${barPriceData.bar_name}, ${barPriceData.location}, ${
-    barPriceData.serving_size
-  }, 
+    barPriceData.address
+  }, ${barPriceData.serving_size}, 
       ${barPriceData.price}, ${barPriceData.happy_hour || false}, 
       ${barPriceData.happy_hour_day || null}, ${
     barPriceData.happy_hour_start || null
