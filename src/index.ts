@@ -5,6 +5,7 @@ import barPricesRouter from "./routers/barPrices";
 import usersRouter from "./routers/users";
 import newBarPricesRouter from "./routers/newBarPrices";
 import reportedBarPricesRouter from "./routers/reportedBarPrices";
+import barsRouter from "./routers/bars";
 
 const app = new Hono();
 
@@ -19,6 +20,7 @@ app.route("/barPrices", barPricesRouter);
 app.route("/newBarPrices", newBarPricesRouter);
 app.route("/reportedBarPrices", reportedBarPricesRouter);
 app.route("/users", usersRouter);
+app.route("/bars", barsRouter);
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
